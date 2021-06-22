@@ -23,5 +23,11 @@
     <ClInclude Include="mylib.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="hang_so.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hien_thi.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -142,6 +142,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="hang_so.h" />
+    <ClInclude Include="hien_thi.h" />
     <ClInclude Include="mylib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
