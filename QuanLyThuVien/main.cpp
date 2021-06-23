@@ -7,7 +7,6 @@ using namespace std;
 int main()
 {
 	fullscreen();
-	introduce();
-	menu_dong(ThucDon);
+	CenterMenu();
 	return 0;
 }

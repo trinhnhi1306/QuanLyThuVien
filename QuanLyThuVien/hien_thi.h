@@ -29,14 +29,14 @@ char ThucDon[MaxItem][70] = {
 // dong tuy chon
 void NormalLine()
 {
-	SetColor(15);// yellow
+	SetColor(11);// yellow
 	SetBGColor(0);// black
 }
 // dong dang chon
 void HighlightLine()
 {
-	SetColor(15);// yellow 
-	SetBGColor(1);// dark blue        
+	SetColor(0);// dark
+	SetBGColor(11);// yellow     
 }
 /*============== CENTER MENU =============*/
 void DrawTable()
@@ -57,9 +57,6 @@ void DrawTable()
 		cout << char(176);
 
 		//ve thanh ngang ben duoi
-		//gotoxy(i, Y_Display + 19);
-		//cout << char(176);
-
 		gotoxy(i, Y_Display + 19 + 3);
 		cout << char(176);
 	}
@@ -88,7 +85,6 @@ int menu_dong(char ThucDon[MaxItem][70])
 	}
 	// to mau cho dong duoc chon
 	int pointer = 0; // vi tri hien tai cua thanh sang
-//	HighlightLine();
 	gotoxy(X_CenterMenu, Y_CenterMenu + pointer * 2);
 	HighlightLine();
 	cout << ThucDon[pointer];
@@ -135,7 +131,6 @@ int menu_dong(char ThucDon[MaxItem][70])
 		}
 	}
 }
-/* ========== END CENTER MENU =========== */
 
 void introduce()
 {
@@ -166,7 +161,7 @@ void introduce()
 
 	string content[] = { "Dau Truong Quan          | N18DCCN162",
 						 "Nguyen Ngoc Phuong Trinh | N18DCCN231" };
-	
+
 	int x = 100;
 	int y = 4;
 	int length = 40;
@@ -195,3 +190,61 @@ void introduce()
 	return;
 }
 
+void CenterMenu()
+{
+	introduce();
+	system("cls");
+	int pointer;
+
+	bool Exit = false;// false nghia la chua thoat, van dang dung
+
+	while (Exit == false)
+	{
+		pointer = menu_dong(ThucDon);
+
+		switch (pointer)
+		{
+		case 1:
+			system("color 0B");
+			//MenuManageAirplane(LA);
+			break;
+		case 2:
+			system("color 0B");
+			//MenuManageFlightLisht(FL);
+			break;
+		case 3:
+			system("color 0B");
+			//BookTicket(root);
+			break;
+		case 4:
+			system("color 0B");
+			//CancelFlightTicket(root);
+			break;
+		case 5:
+			system("color 0B");
+			//SeePassengerList(root);
+			break;
+		case 6:
+			system("color 0B");
+			//WatchUnbookedTicket();
+			break;
+		case 7:
+			system("color 0B");
+			//WatchHowManyTimeFlightTookOff();
+			break;
+		case 8:
+			system("color 0B");
+			//WatchFlightsWithDateTimeAndDestination();
+			break;
+		case MaxItem:
+			//WriteFlightToFile(FL);
+			//SavePassengerToFile(root);
+			system("color 0B");
+			Exit = true;// xac nhan thoat
+			system("cls");
+			//ThankYouAndGoodBye();
+			break;
+		}
+	}
+}
+/* ========== END CENTER MENU =========== */
