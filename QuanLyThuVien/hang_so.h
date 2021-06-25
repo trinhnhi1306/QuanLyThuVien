@@ -47,8 +47,6 @@ const int MaxItem = 10;
 #define X_CenterMenu 60
 #define Y_CenterMenu 5
 
-// max quantity for members
-#define MaxAirplane 300
 // so luong doc gia/sach hien thi trong 1 trang
 #define NumberPerPage 6
 // Board Menu - bang liet ke ra danh sach
@@ -69,9 +67,7 @@ const int MaxItem = 10;
 // Toa do phan thong bao
 #define X_Notification 115
 #define Y_Notification 26
-// Toa do cho vi tri ve
-#define X_TicketChair 20
-#define Y_TicketChair 4
+
 // toa do cho vi tri xac nhan xoa
 #define X_RemoveConfirm 80
 #define Y_RemoveConfirm 27

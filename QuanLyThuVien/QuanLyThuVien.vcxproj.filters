@@ -29,5 +29,8 @@
     <ClInclude Include="hien_thi.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="ctdl.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
