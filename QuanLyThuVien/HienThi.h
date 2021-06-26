@@ -1,16 +1,16 @@
 #pragma once
-#include<iostream>
-#include<conio.h>//getch()
-#include<stdint.h>
-#include<string.h>//char
-#include<string>//string
-#include<iomanip>// for setw va setfill
-#include"hang_so.h"// thu vien chua cac hang so
-#include"mylib.h"// thu vien chua cac ham xu li do hoa
+#include <iostream>
+#include <conio.h>
+#include <iomanip>
+#include <fstream>
+#include <string.h>
+#include <string>
+#include "mylib.h"
+#include "HangSo.h"
+
 
 using namespace std;
-extern int nPassenger;
-// co toi da 5 phan tu toi da 50 ki tu
+
 int xKeyDisplay[7] = { 1,20,45,63,83,95, 107 };// toa do X cac diem nut
 
 char ThucDon[MaxItem][70] = {
