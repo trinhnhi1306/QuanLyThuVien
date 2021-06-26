@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "hien_thi.h"
+#include "HienThi.h"
 using namespace std;
 
 int main()
 {
-	//fullscreen();
+	fullscreen();
 	CenterMenu();
 	return 0;
 }
