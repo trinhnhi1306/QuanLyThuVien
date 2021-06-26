@@ -142,9 +142,13 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ctdl.h" />
-    <ClInclude Include="hang_so.h" />
-    <ClInclude Include="hien_thi.h" />
+    <ClInclude Include="DocGia.h" />
+    <ClInclude Include="DanhMucSach.h" />
+    <ClInclude Include="Date.h" />
+    <ClInclude Include="DauSach.h" />
+    <ClInclude Include="HangSo.h" />
+    <ClInclude Include="HienThi.h" />
+    <ClInclude Include="MuonTra.h" />
     <ClInclude Include="mylib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

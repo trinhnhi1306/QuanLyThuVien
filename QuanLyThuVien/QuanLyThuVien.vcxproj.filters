@@ -23,13 +23,25 @@
     <ClInclude Include="mylib.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="hang_so.h">
+    <ClInclude Include="HangSo.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="hien_thi.h">
+    <ClInclude Include="HienThi.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="ctdl.h">
+    <ClInclude Include="DocGia.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DauSach.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MuonTra.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Date.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DanhMucSach.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
