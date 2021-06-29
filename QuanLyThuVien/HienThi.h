@@ -1,24 +1,21 @@
 #pragma once
 #include <iostream>
-#include <conio.h>
-#include <iomanip>
+#include <conio.h> //hàm getch()
+#include <iomanip> //setw và setfill
 #include <fstream>
 #include <string.h>
 #include <string>
 #include "mylib.h"
 #include "HangSo.h"
-
+#include "DauSach.h"
 
 using namespace std;
-
-int xKeyDisplay[7] = { 1,20,45,63,83,95, 107 };// toa do X cac diem nut
-
 char ThucDon[MaxItem][70] = {
 					   "1. Quan ly Doc Gia                      ",
 					   "2. In danh sach doc gia                 ",
 					   "3. Nhap dau sach va danh ma sach tu dong",
-					   "4. In danh sach dau sach                ",
-					   "5. Tim thong tin sach                   ",
+					   "4. In danh sach dau sach theo the loai  ",
+					   "5. Tim thong tin sach theo ten          ",
 					   "6. Muon sach                            ",
 					   "7. Tra sach                             ",
 					   "8. Danh sach doc gia muon sach qua han  ",
@@ -29,19 +26,19 @@ char ThucDon[MaxItem][70] = {
 // dong tuy chon
 void NormalLine()
 {
-	SetColor(11);// yellow
+	SetColor(11);// aqua
 	SetBGColor(0);// black
 }
 // dong dang chon
 void HighlightLine()
 {
-	SetColor(0);// dark
-	SetBGColor(11);// yellow     
+	SetColor(0);// black
+	SetBGColor(11);// aqua     
 }
 /*============== CENTER MENU =============*/
 void DrawTable()
 {
-	gotoxy(X_TitlePage - 7, Y_TitlePage + 1);
+	gotoxy(X_TitlePage, Y_TitlePage + 1);
 	cout << "CHUC NANG CHINH";
 	/*      "HOC VIEN CONG NGHE BUU CHINH VIEN THONG CO SO THANH PHO HO CHI MINH"*/
 	//ve thanh ngang ben tren va duoi
@@ -156,7 +153,7 @@ void introduce()
 	gotoxy(50, 34);
 	SetBGColor(ColorCode_Black);
 	SetColor(ColorCode_Red);
-	cout << "Please ! Press ENTER to continue !!!! ";
+	cout << "Nhan ENTER de tiep tuc!!!! ";
 	SetBGColor(ColorCode_Black);
 
 	string content[] = { "Dau Truong Quan          | N18DCCN162",
@@ -190,60 +187,67 @@ void introduce()
 	return;
 }
 
+
+
 void CenterMenu()
 {
+	LIST_DS l;
+	khoiTaoDS(l);
+	loadFileDS(l);
 	introduce();
+
 	system("cls");
 	int pointer;
 
 	bool Exit = false;// false nghia la chua thoat, van dang dung
-
+	
 	while (Exit == false)
 	{
 		pointer = menu_dong(ThucDon);
-
+		NormalLine();
+		system("cls");
 		switch (pointer)
 		{
-		case 1:
-			system("color 0B");
-			//MenuManageAirplane(LA);
-			break;
-		case 2:
-			system("color 0B");
-			//MenuManageFlightLisht(FL);
-			break;
-		case 3:
-			system("color 0B");
-			//BookTicket(root);
-			break;
-		case 4:
-			system("color 0B");
-			//CancelFlightTicket(root);
-			break;
-		case 5:
-			system("color 0B");
-			//SeePassengerList(root);
-			break;
-		case 6:
-			system("color 0B");
-			//WatchUnbookedTicket();
-			break;
-		case 7:
-			system("color 0B");
-			//WatchHowManyTimeFlightTookOff();
-			break;
-		case 8:
-			system("color 0B");
-			//WatchFlightsWithDateTimeAndDestination();
-			break;
-		case MaxItem:
-			//WriteFlightToFile(FL);
-			//SavePassengerToFile(root);
-			system("color 0B");
-			Exit = true;// xac nhan thoat
-			system("cls");
-			//ThankYouAndGoodBye();
-			break;
+			case 1:
+				system("color 0B");
+				break;
+			case 2:
+				system("color 0B");
+				system("pause");
+				//MenuManageFlightLisht(FL);
+				break;
+			case 3:
+				system("color 0B");
+				menuDauSach(l);
+				break;
+			case 4:
+				system("color 0B");
+				//CancelFlightTicket(root);
+				break;
+			case 5:
+				system("color 0B");
+				//SeePassengerList(root);
+				break;
+			case 6:
+				system("color 0B");
+				//WatchUnbookedTicket();
+				break;
+			case 7:
+				system("color 0B");
+				//WatchHowManyTimeFlightTookOff();
+				break;
+			case 8:
+				system("color 0B");
+				//WatchFlightsWithDateTimeAndDestination();
+				break;
+			case MaxItem:
+				//WriteFlightToFile(FL);
+				//SavePassengerToFile(root);
+				system("color 0B");
+				Exit = true;// xac nhan thoat
+				system("cls");
+				//ThankYouAndGoodBye();
+				break;
 		}
 	}
 }
