@@ -211,3 +211,9 @@ void xoaThongBao()
 	gotoxy(X_Notification + 1, Y_Notification + 1);
 	cout << setw(60) << setfill(' ') << " ";
 }
+
+void inThongBao(string str)
+{
+	gotoxy(X_Notification + 1, Y_Notification + 1);
+	cout << str;
+}

@@ -98,8 +98,7 @@ void nhapDS(LIST_DS& l)
 					gotoxy(X_Add + 12, viTri * 2 + Y_Add);
 					cout << setw(30) << setfill(' ') << " ";
 					xoaThongBao();
-					gotoxy(X_Notification + 1, Y_Notification + 1);
-					cout << "Ma ISBN bi trung!";
+					inThongBao("Ma ISBN bi trung!");
 					break;
 				}
 				xoaThongBao();
@@ -171,6 +170,9 @@ void nhapDS(LIST_DS& l)
 				gotoxy(X_Notification, Y_Notification + 1);
 				cout << "Them thanh cong ";
 				xoaBangNhap();
+				soLuongTrangDS = (int)ceil((double)l.n / NumberPerPage);
+				trangDSHienTai = soLuongTrangDS;
+				chuyenTrangDS(l);
 				return;
 			}
 		}
@@ -377,10 +379,7 @@ void menuDauSach(LIST_DS& l)
 						return;
 					}
 					CreateForm(thongTinDS, 0, 6, 50);
-					nhapDS(l);
-					soLuongTrangDS = (int)ceil((double)l.n / NumberPerPage);
-					trangDSHienTai = soLuongTrangDS;
-					chuyenTrangDS(l);
+					nhapDS(l);					
 					ShowCur(false);
 				}// endif signal == INSERT
 
