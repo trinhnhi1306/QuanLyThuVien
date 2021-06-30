@@ -87,11 +87,11 @@ int Kiem_tra_phim(char c)
 // truyền một chuỗi và cờ để nhập - flag = 0 chỉ có kí tự, flag = 1 kí tự và số, flag = 2 nhập kí tự số
 int nhap_ki_tu(string& str, int flag, int viTri)
 {
-	str = "";
 	// nếu nhập kí tự enter thì chuỗi hiểu đó là kí tự kết thúc chuỗi <=> length = 0, ko tính là 1 kí tự
 	bool KT = false; // điều kiện để chạy vòng lặp
 	int length = str.length(); // biến cho con trỏ dịch đến cuối
 	gotoxy(X_Add + 12, viTri * 2 + Y_Add);
+	cout << str;
 	char c;
 	do
 	{

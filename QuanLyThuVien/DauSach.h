@@ -93,16 +93,16 @@ void nhapDS(LIST_DS& l)
 					xoaThongBao();
 					return;
 				}
-				
 				if (timKiemDSTheoMa(l, s.ISBN) != -1)
 				{
 					gotoxy(X_Add + 12, viTri * 2 + Y_Add);
-					cout << setw(40) << setfill(' ') << " ";
+					cout << setw(30) << setfill(' ') << " ";
 					xoaThongBao();
 					gotoxy(X_Notification + 1, Y_Notification + 1);
 					cout << "Ma ISBN bi trung!";
 					break;
 				}
+				xoaThongBao();
 				viTri++;
 				break;
 			}
