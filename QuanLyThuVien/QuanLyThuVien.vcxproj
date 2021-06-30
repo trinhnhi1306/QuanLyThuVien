@@ -146,6 +146,7 @@
     <ClInclude Include="DanhMucSach.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="DauSach.h" />
+    <ClInclude Include="HamNhap.h" />
     <ClInclude Include="HangSo.h" />
     <ClInclude Include="HienThi.h" />
     <ClInclude Include="MuonTra.h" />

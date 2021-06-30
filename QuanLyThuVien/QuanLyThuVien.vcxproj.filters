@@ -44,5 +44,8 @@
     <ClInclude Include="DanhMucSach.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="HamNhap.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

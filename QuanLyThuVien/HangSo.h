@@ -53,8 +53,8 @@ const int MaxItem = 10;
 #define X_Display 50
 #define Y_Display 3
 // Toa do de tao ra bang them thong tin
-#define X_Add 115
-#define Y_Add 4
+#define X_Add 50
+#define Y_Add 30
 // Toa do cua phan hien thi page/ total Page
 #define X_Page 80
 #define Y_Page 26

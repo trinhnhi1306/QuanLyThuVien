@@ -36,6 +36,8 @@ void HighlightLine()
 	SetBGColor(11);// aqua     
 }
 /*============== CENTER MENU =============*/
+
+//Ve vien bang menu
 void DrawTable()
 {
 	gotoxy(X_TitlePage, Y_TitlePage + 1);
@@ -186,8 +188,6 @@ void introduce()
 	cin.ignore();
 	return;
 }
-
-
 
 void CenterMenu()
 {

@@ -63,3 +63,24 @@ void inDMS(PTR_DMS First)
 		cout << setw(20) << left << q->data.vitri << endl;
 	}
 }
+//Tao 1 hang nhap thong tin
+void CreateRow(int x, int y, string content, int length)
+{
+	gotoxy(x - 2, y - 1);
+	cout << char(176) << setw(length) << setfill(char(176)) << char(176) << char(176);
+
+	gotoxy(x - 2, y);
+	cout << char(176) << content << setw(length - content.length() + 1) << setfill(' ') << char(176);
+}
+//Tao 1 bang nhap thong tin
+void CreateForm(string content[], int StartIndex, int nContent, int length)
+{
+	int yAdd = Y_Add;
+	for (int i = StartIndex; i < nContent; i++)
+	{
+		CreateRow(X_Add, yAdd, content[i], length);
+		yAdd += 2;
+	}
+	gotoxy(X_Add - 2, yAdd - 1);
+	cout << char(176) << setw(length) << setfill(char(176)) << char(176) << char(176);
+}

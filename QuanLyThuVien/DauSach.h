@@ -1,9 +1,11 @@
 ﻿#pragma once
-#include <iostream>
-#include <string>
+#include "HamNhap.h"
 #include "HangSo.h"
 #include "HienThi.h"
 #include "DanhMucSach.h"
+#include <iostream>
+#include <string>
+#include <stdlib.h>
 using namespace std;
 #define MAX 300 //số lượng đầu sách tối đa
 
@@ -12,6 +14,7 @@ int trangDSHienTai = 1;
 int soLuongTrangDS = 0;
 int xKeyDisplay[7] = { 1,20,60,70,90,110, 130 };// toa do X cac diem nut
 string thongTinDS[6] = { "ISBN", "Ten sach", "So trang", "Tac gia", "Nam xuat ban", "The loai" };
+
 //=====ĐẦU SÁCH=====
 struct dausach
 {
@@ -31,6 +34,20 @@ struct list_dausach
 	dausach* ds[MAX];
 };
 typedef struct list_dausach LIST_DS;
+
+//=====Khai bao cac thuat toan=====
+void khoiTaoDS(LIST_DS& l);
+int themMotDS(LIST_DS& l, dausach s);
+void nhapDS(LIST_DS& l);
+int timKiemDSTheoMa(LIST_DS l, string ma);
+void RemoveOldData(int nContent, int locate);
+void inMotDS(dausach* s, int position);
+void hienThi(string content[], int nContent);
+void xoaNoiDungBiDu(int count, int nContent);
+void inMotTrangDS(LIST_DS l, int StartIndex);
+void chuyenTrangDS(LIST_DS l);
+void loadFileDS(LIST_DS& l);
+void menuDauSach(LIST_DS& l);
 
 //=====CÁC THUẬT TOÁN=====
 
@@ -56,18 +73,108 @@ int themMotDS(LIST_DS& l, dausach s)
 //Nhập đầu sách
 void nhapDS(LIST_DS& l)
 {
-	//cin.ignore();
 	dausach s;
-	cout << "Nhập ISBN: "; getline(cin, s.ISBN);
-	cout << "Nhập tên sách: "; getline(cin, s.tensach);
-	cout << "Nhập số trang: "; cin >> s.sotrang;
-	cin.ignore();
-	cout << "Nhập tác giả: "; getline(cin, s.tacgia);	
-	cout << "Nhập năm xuất bản: "; cin >> s.namxuatban;
-	cin.ignore();
-	cout << "Nhập thể loại: "; getline(cin, s.theloai);
-	s.soluotmuon = 0;
-	themMotDS(l, s);
+	int viTri = 0;// so thu tu bat dau nhap
+	int target = -1;
+	string soTrang;
+	string namxb;
+	int kt;
+	ShowCur(true);
+	while (true)
+	{
+		switch (viTri)
+		{
+			case 0:
+			{
+				kt = nhap_ki_tu(s.ISBN, 2, viTri);
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				
+				if (timKiemDSTheoMa(l, s.ISBN) != -1)
+				{
+					gotoxy(X_Add + 12, viTri * 2 + Y_Add);
+					cout << setw(40) << setfill(' ') << " ";
+					xoaThongBao();
+					gotoxy(X_Notification + 1, Y_Notification + 1);
+					cout << "Ma ISBN bi trung!";
+					break;
+				}
+				viTri++;
+				break;
+			}
+			case 1:
+			{
+				kt = nhap_ki_tu(s.tensach, 1, viTri);
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				viTri++;
+				break;
+			}
+			case 2:
+			{
+				kt = nhap_ki_tu(soTrang, 2, viTri);
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				viTri++;
+				s.sotrang = atoi(soTrang.c_str());
+				break;
+			}
+			case 3:
+			{
+				kt = nhap_ki_tu(s.tacgia, 0, viTri);
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				viTri++;
+				break;
+			}
+			case 4:
+			{
+				kt = nhap_ki_tu(namxb, 2, viTri);
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				s.namxuatban = atoi(namxb.c_str());
+				viTri++;
+				break;
+			}
+			case 5:
+			{
+				kt = nhap_ki_tu(s.theloai, 0, viTri);
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				s.soluotmuon = 0;
+				themMotDS(l, s);
+				xoaThongBao();
+				gotoxy(X_Notification, Y_Notification + 1);
+				cout << "Them thanh cong ";
+				xoaBangNhap();
+				return;
+			}
+		}
+	}
 }
 
 //Tìm kiếm đầu sách theo mã đầu sách nếu có trả về vị trí, nếu không trả về -1
@@ -152,7 +259,7 @@ void hienThi(string content[], int nContent)// ve bang
 }
 
 // nContent - so luong thanh phan co trong bang do
-void xoaNoiDungBiTran(int count, int nContent)
+void xoaNoiDungBiDu(int count, int nContent)
 {
 	if (count < NumberPerPage)
 	{
@@ -176,7 +283,7 @@ void inMotTrangDS (LIST_DS l, int StartIndex)
 	{
 		inMotDS(l.ds[i + StartIndex], i);
 	}
-	xoaNoiDungBiTran(i, 6);
+	xoaNoiDungBiDu(i, 6);
 	gotoxy(X_Page, Y_Page);
 	cout << " Trang " << trangDSHienTai << "/" << soLuongTrangDS;
 }
@@ -263,18 +370,18 @@ void menuDauSach(LIST_DS& l)
 				}
 				// them moi
 				else if (signal == INSERT)
-				{/*
-					if (LA.SoLuong == MaxAirplane)
+				{
+					if (l.n == MAX)
 					{
-						gotoxy(X_Notification, Y_Notification + 1); cout << "Danh sach day,khong the them";
+						gotoxy(X_Notification, Y_Notification + 1); cout << "Danh sach day, khong the them";
 						return;
 					}
-					CreateForm(ContentAirplane, 0, 3, 27);
-					InputAirplane(LA);
-					TotalAirplanePage = (int)ceil((double)LA.SoLuong / NumberPerPage);
-					ShowListAirplaneOnePage(LA, (CurAirplanePage - 1) * NumberPerPage);
+					CreateForm(thongTinDS, 0, 6, 50);
+					nhapDS(l);
+					soLuongTrangDS = (int)ceil((double)l.n / NumberPerPage);
+					trangDSHienTai = soLuongTrangDS;
+					chuyenTrangDS(l);
 					ShowCur(false);
-					*/
 				}// endif signal == INSERT
 
 				// xoa di
