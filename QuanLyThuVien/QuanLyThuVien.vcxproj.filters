@@ -20,32 +20,32 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="mylib.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HangSo.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HienThi.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DocGia.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DauSach.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MuonTra.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="DanhMucSach.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Date.h">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DanhMucSach.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="DauSach.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DocGia.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HamNhap.h">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HangSo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HienThi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MuonTra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mylib.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -17,6 +17,13 @@ struct node_DMS
 	node_DMS* next;
 };
 typedef node_DMS* PTR_DMS;
+//=====Khai báo các thuật toán=====
+void khoiTaoDMS(PTR_DMS& First);
+node_DMS* taoNodeDMS(danhmucsach& x);
+void themLastDMS(PTR_DMS& First, node_DMS* p);
+void inDMS(PTR_DMS First);
+void CreateRow(int x, int y, string content, int length);
+void CreateForm(string content[], int StartIndex, int nContent, int length);
 
 //=====CÁC THUẬT TOÁN=====
 
@@ -63,6 +70,7 @@ void inDMS(PTR_DMS First)
 		cout << setw(20) << left << q->data.vitri << endl;
 	}
 }
+
 //Tao 1 hang nhap thong tin
 void CreateRow(int x, int y, string content, int length)
 {

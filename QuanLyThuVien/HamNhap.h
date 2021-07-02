@@ -2,8 +2,20 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
+#include <iomanip>
+#include "mylib.h"
 #include "HangSo.h"
 using namespace std;
+
+//=====Khai báo các thuật toán=====
+void chuan_hoa_chu(string& a);
+bool Kiem_Tra_Du_Lieu(char c);
+bool Kiem_Tra_Ki_Tu_So(char c);
+int Kiem_tra_phim(char c);
+int nhap_ki_tu(string& str, int flag, int viTri);
+void xoaBangNhap();
+void xoaThongBao();
+void inThongBao(string str);
 
 // hàm chuẩn hóa chữ ( xóa khoảng trắng đầu, cuối, khoảng trắng dư ở giữa, biến đổi các chữ trong chuỗi thành in hoa hết) 
 void chuan_hoa_chu(string& a)
@@ -208,12 +220,12 @@ void xoaBangNhap()
 }
 void xoaThongBao()
 {
-	gotoxy(X_Notification + 1, Y_Notification + 1);
+	gotoxy(X_Notification, Y_Notification + 1);
 	cout << setw(60) << setfill(' ') << " ";
 }
 
 void inThongBao(string str)
 {
-	gotoxy(X_Notification + 1, Y_Notification + 1);
+	gotoxy(X_Notification, Y_Notification + 1);
 	cout << str;
 }

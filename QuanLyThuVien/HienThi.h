@@ -1,40 +1,33 @@
-#pragma once
-#include <iostream>
-#include <conio.h> //h�m getch()
-#include <iomanip> //setw v� setfill
-#include <fstream>
-#include <string.h>
-#include <string>
+﻿#pragma once
 #include "mylib.h"
 #include "HangSo.h"
 #include "DauSach.h"
+#include <iostream>
+#include <conio.h> //hàm getch()
+#include <iomanip> //setw và setfill
+#include <fstream>
+#include <string.h>
+#include <string>
+//void NormalLine();
+//void HighlightLine();
+void DrawTable();
+int menu_dong(string ThucDon[], int n, int x, int y);
+void introduce();
+void CenterMenu();
 
 using namespace std;
-char ThucDon[MaxItem][70] = {
+string ThucDon[MaxItem] = {
 					   "1. Quan ly Doc Gia                      ",
-					   "2. In danh sach doc gia                 ",
-					   "3. Nhap dau sach va danh ma sach tu dong",
-					   "4. In danh sach dau sach theo the loai  ",
-					   "5. Tim thong tin sach theo ten          ",
-					   "6. Muon sach                            ",
-					   "7. Tra sach                             ",
-					   "8. Danh sach doc gia muon sach qua han  ",
-					   "9. Top 10 sach muon nhieu nhat          ",
+					   "2. Quan ly Dau sach                     ",
+					   "3. Quan ly Sach                         ",
+					   "4. Tim kiem sach theo ten               ",
+					   "5. Muon sach                            ",
+					   "6. Tra sach                             ",
+					   "7. Danh sach doc gia muon sach qua han  ",
+					   "8. Top 10 sach muon nhieu nhat          ",
 					   "0. Thoat Chuong Trinh                   "
 };
 
-// dong tuy chon
-void NormalLine()
-{
-	SetColor(11);// aqua
-	SetBGColor(0);// black
-}
-// dong dang chon
-void HighlightLine()
-{
-	SetColor(0);// black
-	SetBGColor(11);// aqua     
-}
 /*============== CENTER MENU =============*/
 
 //Ve vien bang menu
@@ -67,67 +60,6 @@ void DrawTable()
 
 		gotoxy(122, j - 2);
 		cout << char(176);
-	}
-}
-int menu_dong(char ThucDon[MaxItem][70])
-{
-	// xuat menu
-	ShowCur(false);// an con tro nhap nhay di
-	NormalLine();
-	system("cls");
-	DrawTable();
-	for (int i = 0; i < MaxItem; i++)
-	{
-
-		gotoxy(X_CenterMenu, Y_CenterMenu + i * 2);
-		cout << ThucDon[i];
-	}
-	// to mau cho dong duoc chon
-	int pointer = 0; // vi tri hien tai cua thanh sang
-	gotoxy(X_CenterMenu, Y_CenterMenu + pointer * 2);
-	HighlightLine();
-	cout << ThucDon[pointer];
-	// dieu khien chuc nang
-	char signal;
-	while (true)
-	{
-		signal = _getch();// kiem tra xem co nhap gi tu ban phim khong
-		if (signal == -32)
-		{
-			signal = _getch();
-		}
-		// dieu huong
-		switch (signal)
-		{
-		case KEY_UP:
-			if (pointer + 1 > 1)
-			{
-				// tro ve mau cu
-				NormalLine();
-				gotoxy(X_CenterMenu, Y_CenterMenu + pointer * 2);
-				cout << ThucDon[pointer];
-				pointer--;// cap nhat lai vi tri 
-				// vi tri thanh sang
-				HighlightLine();
-				gotoxy(X_CenterMenu, Y_CenterMenu + pointer * 2);
-				cout << ThucDon[pointer];
-			}
-			break;
-		case KEY_DOWN:
-			if (pointer + 1 < MaxItem)
-			{
-				NormalLine();
-				gotoxy(X_CenterMenu, Y_CenterMenu + pointer * 2);
-				cout << ThucDon[pointer];
-				pointer++;
-				HighlightLine();
-				gotoxy(X_CenterMenu, Y_CenterMenu + pointer * 2);
-				cout << ThucDon[pointer];
-			}
-			break;
-		case ENTER:// lua lai ket qua de thuc hien lenh tuong ung voi CenterMenu
-			return pointer + 1;
-		}
 	}
 }
 
@@ -189,6 +121,69 @@ void introduce()
 	return;
 }
 
+//tao menu dong, ThucDon: các lựa chọn, n: số lượng các lựa chọn, x, y: vị trí đặt menu
+int menu_dong(string ThucDon[], int n, int x, int y)
+{
+	// xuat menu
+	ShowCur(false);// an con tro nhap nhay di
+	NormalLine();
+	system("cls");
+	DrawTable();
+	for (int i = 0; i < n; i++)
+	{
+
+		gotoxy(x, y + i * 2);
+		cout << ThucDon[i];
+	}
+	// to mau cho dong duoc chon
+	int pointer = 0; // vi tri hien tai cua thanh sang
+	gotoxy(x, y + pointer * 2);
+	HighlightLine();
+	cout << ThucDon[pointer];
+	// dieu khien chuc nang
+	char signal;
+	while (true)
+	{
+		signal = _getch();// kiem tra xem co nhap gi tu ban phim khong
+		if (signal == -32)
+		{
+			signal = _getch();
+		}
+		// dieu huong
+		switch (signal)
+		{
+		case KEY_UP:
+			if (pointer + 1 > 1)
+			{
+				// tro ve mau cu
+				NormalLine();
+				gotoxy(x, y + pointer * 2);
+				cout << ThucDon[pointer];
+				pointer--;// cap nhat lai vi tri 
+				// vi tri thanh sang
+				HighlightLine();
+				gotoxy(x, y + pointer * 2);
+				cout << ThucDon[pointer];
+			}
+			break;
+		case KEY_DOWN:
+			if (pointer + 1 < MaxItem)
+			{
+				NormalLine();
+				gotoxy(x, y + pointer * 2);
+				cout << ThucDon[pointer];
+				pointer++;
+				HighlightLine();
+				gotoxy(x, y + pointer * 2);
+				cout << ThucDon[pointer];
+			}
+			break;
+		case ENTER:// lua lai ket qua de thuc hien lenh tuong ung voi CenterMenu
+			return pointer + 1;
+		}
+	}
+}
+
 void CenterMenu()
 {
 	LIST_DS l;
@@ -203,7 +198,7 @@ void CenterMenu()
 	
 	while (Exit == false)
 	{
-		pointer = menu_dong(ThucDon);
+		pointer = menu_dong(ThucDon, MaxItem, X_CenterMenu, Y_CenterMenu);
 		NormalLine();
 		system("cls");
 		switch (pointer)
@@ -213,40 +208,30 @@ void CenterMenu()
 				break;
 			case 2:
 				system("color 0B");
-				system("pause");
-				//MenuManageFlightLisht(FL);
+				menuDauSach(l);
 				break;
 			case 3:
-				system("color 0B");
-				menuDauSach(l);
+				system("color 0B");				
 				break;
 			case 4:
 				system("color 0B");
-				//CancelFlightTicket(root);
 				break;
 			case 5:
 				system("color 0B");
-				//SeePassengerList(root);
 				break;
 			case 6:
 				system("color 0B");
-				//WatchUnbookedTicket();
 				break;
 			case 7:
 				system("color 0B");
-				//WatchHowManyTimeFlightTookOff();
 				break;
 			case 8:
 				system("color 0B");
-				//WatchFlightsWithDateTimeAndDestination();
 				break;
 			case MaxItem:
-				//WriteFlightToFile(FL);
-				//SavePassengerToFile(root);
 				system("color 0B");
-				Exit = true;// xac nhan thoat
+				Exit = true;
 				system("cls");
-				//ThankYouAndGoodBye();
 				break;
 		}
 	}

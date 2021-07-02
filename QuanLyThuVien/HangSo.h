@@ -43,7 +43,7 @@
 #define HOME 71
 #define END 79// 224
 // center menu
-const int MaxItem = 10;
+const int MaxItem = 9;
 #define X_CenterMenu 60
 #define Y_CenterMenu 5
 
