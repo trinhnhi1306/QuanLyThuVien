@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <string>
 #include "Date.h"
+#include "DauSach.h"
 using namespace std;
 
 //=====DANH MỤC SÁCH=====
@@ -17,6 +18,7 @@ struct node_DMS
 	node_DMS* next;
 };
 typedef node_DMS* PTR_DMS;
+
 //=====Khai báo các thuật toán=====
 void khoiTaoDMS(PTR_DMS& First);
 node_DMS* taoNodeDMS(danhmucsach& x);

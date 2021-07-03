@@ -17,14 +17,13 @@ void CenterMenu();
 
 using namespace std;
 string ThucDon[MaxItem] = {
-					   "1. Quan ly Doc Gia                      ",
-					   "2. Quan ly Dau sach                     ",
-					   "3. Quan ly Sach                         ",
-					   "4. Tim kiem sach theo ten               ",
-					   "5. Muon sach                            ",
-					   "6. Tra sach                             ",
-					   "7. Danh sach doc gia muon sach qua han  ",
-					   "8. Top 10 sach muon nhieu nhat          ",
+					   "1. Quan ly doc gia                      ",
+					   "2. Quan ly dau sach                     ",
+					   "3. Tim kiem sach theo ten               ",
+					   "4. Muon sach                            ",
+					   "5. Tra sach                             ",
+					   "6. Danh sach doc gia muon sach qua han  ",
+					   "7. Top 10 sach muon nhieu nhat          ",
 					   "0. Thoat Chuong Trinh                   "
 };
 
@@ -188,7 +187,7 @@ void CenterMenu()
 {
 	LIST_DS l;
 	khoiTaoDS(l);
-	loadFileDS(l);
+	docFileDS(l);
 	introduce();
 
 	system("cls");
@@ -223,9 +222,6 @@ void CenterMenu()
 				system("color 0B");
 				break;
 			case 7:
-				system("color 0B");
-				break;
-			case 8:
 				system("color 0B");
 				break;
 			case MaxItem:
