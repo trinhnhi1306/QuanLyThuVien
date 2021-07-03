@@ -196,15 +196,15 @@ void xoaThongTinBangNhap()
 	cout << setw(30) << setfill(' ') << "";
 }
 
-//Nhập đầu sách, flag = 0 : thêm mới, flag = 1 : xóa, flag = 2: chỉnh sửa
+//Nhập thông tin đầu sách, flag = 0 : thêm mới, flag = 1 : xóa, flag = 2: chỉnh sửa
 void nhapDS(LIST_DS& l, int flag)
 {
-	dausach s;
-	int viTri = 0;// so thu tu bat dau nhap
-	int target = -1;
+	dausach s;	
 	string soTrang;
 	string namxb;
+	int viTri = 0;// so thu tu bat dau nhap
 	int kt;
+	int khoangCach = 12;
 	ShowCur(true);
 	while (true)
 	{
@@ -213,7 +213,7 @@ void nhapDS(LIST_DS& l, int flag)
 			case 0:
 			{
 				xoaThongTinBangNhap();
-				kt = nhap_ki_tu(s.ISBN, 2, viTri);
+				kt = nhap_ki_tu(s.ISBN, 2, viTri, khoangCach);
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -222,26 +222,24 @@ void nhapDS(LIST_DS& l, int flag)
 				}
 				if (flag == 0) //trường hợp nhập mới
 				{
+					xoaThongBao();
 					if (timKiemDauSachTheoMa(l, s.ISBN) != -1)
-					{
-						xoaThongBao();
+					{						
 						inThongBao("Ma ISBN bi trung!");
 						break;
 					}
-					xoaThongBao();
 					viTri++;
 					break;
 				}
 				if (flag == 1)
 				{
 					int stt = timKiemDauSachTheoMa(l, s.ISBN);
+					xoaThongBao();
 					if (stt == -1)
-					{
-						xoaThongBao();
+					{						
 						inThongBao("Dau sach khong ton tai!");
 						break;
-					}
-					xoaThongBao();					
+					}									
 					gotoxy(X_Add + 12, 1 * 2 + Y_Add);
 					cout << l.ds[stt]->tensach;
 					gotoxy(X_Add + 12, 2 * 2 + Y_Add);
@@ -282,7 +280,7 @@ void nhapDS(LIST_DS& l, int flag)
 			}
 			case 1:
 			{
-				kt = nhap_ki_tu(s.tensach, 1, viTri);
+				kt = nhap_ki_tu(s.tensach, 1, viTri, khoangCach);
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -294,7 +292,7 @@ void nhapDS(LIST_DS& l, int flag)
 			}
 			case 2:
 			{
-				kt = nhap_ki_tu(soTrang, 2, viTri);
+				kt = nhap_ki_tu(soTrang, 2, viTri, khoangCach);
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -307,7 +305,7 @@ void nhapDS(LIST_DS& l, int flag)
 			}
 			case 3:
 			{
-				kt = nhap_ki_tu(s.tacgia, 0, viTri);
+				kt = nhap_ki_tu(s.tacgia, 0, viTri, khoangCach);
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -319,7 +317,7 @@ void nhapDS(LIST_DS& l, int flag)
 			}
 			case 4:
 			{
-				kt = nhap_ki_tu(namxb, 2, viTri);
+				kt = nhap_ki_tu(namxb, 2, viTri, khoangCach);
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -332,7 +330,7 @@ void nhapDS(LIST_DS& l, int flag)
 			}
 			case 5:
 			{
-				kt = nhap_ki_tu(s.theloai, 0, viTri);
+				kt = nhap_ki_tu(s.theloai, 0, viTri, khoangCach);
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -349,6 +347,96 @@ void nhapDS(LIST_DS& l, int flag)
 				inMotTrangDS(l, (trangDSHienTai - 1)* NumberPerPage);
 				return;
 			}
+		}
+	}
+}
+
+//Nhập thông tin sách
+void nhapDMS(LIST_DS& l)
+{	
+	int i; //vị trí đầu sách trong mảng
+	int n = 0; //số lượng sách cần thêm mà người dùng nhập vào	
+	string chuoinhap; //chuỗi người dùng nhập vào
+	int viTri = 0;// so thu tu bat dau nhap	
+	int kt;
+	int khoangCach = 20;
+	ShowCur(true);
+	while (true)
+	{
+		switch (viTri)
+		{
+			case 0:
+			{
+				xoaThongTinBangNhap();
+				kt = nhap_ki_tu(chuoinhap, 2, viTri, khoangCach);
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				i = timKiemDauSachTheoMa(l, chuoinhap);
+				if (i == -1)
+				{
+					xoaThongBao();
+					inThongBao("Dau sach nay khong ton tai!");
+					break;
+				}					
+				xoaThongBao();
+				viTri++;
+				chuoinhap = "";
+				break;
+			}
+			case 1:
+			{
+				kt = nhap_ki_tu(chuoinhap, 2, viTri, khoangCach); //chỉ nhập số
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				n = atoi(chuoinhap.c_str());
+				viTri++;
+				break;
+			}
+			case 2:
+			{
+				danhmucsach x;
+				int stt = 0; //stt mã sách
+				if (l.ds[i]->dms != NULL)
+				{
+					PTR_DMS q = l.ds[i]->dms;
+					while (q->next != NULL)
+					{
+						q = q->next;
+					}
+					x.vitri = q->data.vitri; // lấy vị trí cuối cùng của sách đã tồn tại
+					int pos = q->data.masach.find("-"); // lấy vị trí của kí tự - trong chuỗi
+					string str = q->data.masach.substr(pos + 1); //  lấy chuỗi con của q->data.masach bắt đầu sau kí tự '-'
+					stt = atoi(str.c_str()); //chuyển chuỗi sang số
+				}
+				for (int j = 0; j < n; j++)
+				{
+					x.masach = l.ds[i]->ISBN + "-" + to_string(stt + j + 1);
+					gotoxy(X_Add + khoangCach, viTri * 2 + Y_Add);
+					cout << x.masach;
+					kt = nhap_ki_tu(x.vitri, 1, viTri + 1, khoangCach); //chỉ nhập kí tự và số
+					if (kt == -1) // ESC
+					{
+						xoaBangNhap();
+						xoaThongBao();
+						return;
+					}
+					x.trangthai = 0; // mặc định sách có thể mượn được
+					themLastDMS(l.ds[i]->dms, taoNodeDMS(x));
+				}
+				ghiFileDS(l);
+				xoaThongBao();
+				inThongBao("Them sach thanh cong!");
+				xoaBangNhap();
+				return;
+			}			
 		}
 	}
 }
@@ -616,6 +704,7 @@ void menuDauSach(LIST_DS& l)
 	{
 		while (_kbhit())
 		{
+			xoaThongBao();
 			signal = _getch();
 			if (signal == ESC)
 				return;
@@ -641,10 +730,10 @@ void menuDauSach(LIST_DS& l)
 				{
 					if (l.n == MAX)
 					{
-						gotoxy(X_Notification, Y_Notification + 1); cout << "Danh sach day, khong the them";
-						return;
+						inThongBao("Danh sach day, khong the them");
+						break;
 					}
-					CreateForm(thongTinDS, 0, 6, 50);
+					taoBangNhap("Nhap thong tin dau sach", thongTinDS, 0, 6, 50);
 					nhapDS(l, 0);					
 					ShowCur(false);
 				}// endif signal == INSERT
@@ -657,15 +746,16 @@ void menuDauSach(LIST_DS& l)
 						inThongBao("Danh sach rong");
 						return;
 					}
-					CreateForm(thongTinDS, 0, 6, 50);
+					taoBangNhap("Nhap thong tin dau sach", thongTinDS, 0, 6, 50);
 					nhapDS(l, 1);
 					ShowCur(false);
 				}//else if( signal == DEL)
 				// HOME == chinh sua
 				else if (signal == HOME) //Thêm sách
 				{
-					return;
-					
+					taoBangNhap("Nhap thong tin sach", thongTinDMS, 0, 4, 50);
+					nhapDMS(l);
+					ShowCur(false);
 				}// signal == HOME
 			}
 		}//while( _kbhit)

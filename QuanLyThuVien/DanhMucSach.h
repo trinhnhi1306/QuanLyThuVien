@@ -24,8 +24,8 @@ void khoiTaoDMS(PTR_DMS& First);
 node_DMS* taoNodeDMS(danhmucsach& x);
 void themLastDMS(PTR_DMS& First, node_DMS* p);
 void inDMS(PTR_DMS First);
-void CreateRow(int x, int y, string content, int length);
-void CreateForm(string content[], int StartIndex, int nContent, int length);
+void taoHangNhap(int x, int y, string content, int length);
+void taoBangNhap(string title, string content[], int StartIndex, int nContent, int length);
 
 //=====CÁC THUẬT TOÁN=====
 
@@ -74,7 +74,7 @@ void inDMS(PTR_DMS First)
 }
 
 //Tao 1 hang nhap thong tin
-void CreateRow(int x, int y, string content, int length)
+void taoHangNhap(int x, int y, string content, int length)
 {
 	gotoxy(x - 2, y - 1);
 	cout << char(176) << setw(length) << setfill(char(176)) << char(176) << char(176);
@@ -83,12 +83,14 @@ void CreateRow(int x, int y, string content, int length)
 	cout << char(176) << content << setw(length - content.length() + 1) << setfill(' ') << char(176);
 }
 //Tao 1 bang nhap thong tin
-void CreateForm(string content[], int StartIndex, int nContent, int length)
+void taoBangNhap(string title, string content[], int StartIndex, int nContent, int length)
 {
+	gotoxy(X_Add - 2, Y_Add - 2);
+	cout << title;
 	int yAdd = Y_Add;
 	for (int i = StartIndex; i < nContent; i++)
 	{
-		CreateRow(X_Add, yAdd, content[i], length);
+		taoHangNhap(X_Add, yAdd, content[i], length);
 		yAdd += 2;
 	}
 	gotoxy(X_Add - 2, yAdd - 1);
