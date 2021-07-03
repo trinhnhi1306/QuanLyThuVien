@@ -585,12 +585,16 @@ string tachMaSach(string masach)
 	return temp;
 }
 
-PTR_DMS timKiemDanhMucSach(LIST_DS l, string masach)
+node_DMS* timKiemDanhMucSach(LIST_DS l, string masach)
 {
 	string isbn = tachMaSach(masach);
-	int i = timKiemDauSachTheoMa(l, masach);
+	int i = timKiemDauSachTheoMa(l, isbn);
 	if (i != -1)
-		return l.ds[i]->dms;
+		for (node_DMS* p = l.ds[i]->dms; p != NULL; p = p->next)
+		{
+			if (p->data.masach.compare(masach) == 0)
+				return p;
+		}
 	return NULL;
 }
 
