@@ -96,6 +96,27 @@ int Kiem_tra_phim(char c)
 
 	return 0;
 }
+
+//Kiem tra chuoi rỗng, rỗng: true, không rỗng: false
+bool kiemTraChuoiRong(string str)
+{
+	int length = str.length();
+	int dem = 1;
+	int dem1 = 0;
+	for (int i = 0; i < length; i++)
+	{
+		if ((int)str[i] == 32)
+			dem++;
+		else
+			dem1++;
+	}
+	if (length == 0 || (dem >= 2 && dem1 == 0))
+	{
+		return true;
+	}
+	return false;
+}
+
 // truyền một chuỗi và cờ để nhập - flag = 0 chỉ có kí tự, flag = 1 kí tự và số, flag = 2 nhập kí tự số
 int nhap_ki_tu(string& str, int flag, int viTri, int khoangCach)
 {
@@ -114,7 +135,13 @@ int nhap_ki_tu(string& str, int flag, int viTri, int khoangCach)
 
 			if (c == 0 || c == -32) // 0 là null và -32 là một số trường hợp đặt biệt sẽ xuất hiện kí tự -32 ví dụ như các phím di chuyển lên xuống <^>
 			{
-				break;
+				c = _getch();
+				if (kiemTraChuoiRong(str))
+					break;				
+				if (c == KEY_UP)
+					return KEY_UP;
+				if (c == KEY_DOWN)
+					return KEY_DOWN;
 			}
 			if (c == 27) // nhấn nút esc thì thoát
 			{
@@ -154,6 +181,9 @@ int nhap_ki_tu(string& str, int flag, int viTri, int khoangCach)
 			}
 			else
 			{
+				if (c >= 97 && c <= 122) {
+					c = c - 32;
+				}
 				// bỏ kí tự vừa nhập vào cuối
 				str.push_back(c);
 
@@ -171,11 +201,7 @@ int nhap_ki_tu(string& str, int flag, int viTri, int khoangCach)
 				}
 
 				// in hoa nếu là chữ
-				if (c >= 97 && c <= 122) {
-					c = c - 32;
-					cout << c;
-				}
-				else cout << c;
+				cout << c;
 				length++;
 
 
@@ -185,23 +211,13 @@ int nhap_ki_tu(string& str, int flag, int viTri, int khoangCach)
 		// sau khi nhấn enter thì xem phải chuỗi rỗng hay ko, nếu có thì thông báo lỗi
 		if (c == 13)
 		{
-			int dem = 1;
-			int dem1 = 0;
-			for (int i = 0; i < length; i++)
+			if (kiemTraChuoiRong(str))
 			{
-				if ((int)str[i] == 32)
-					dem++;
-				else
-					dem1++;
-			}
-			if (length == 0 || (dem >= 2 && dem1 == 0))
-			{
-				cout << "KHONG DUOC DE TRONG";
+				//cout << "KHONG DUOC DE TRONG";
 				KT = false;
 			}
 			else
 				KT = true;
-
 		}
 	} while (KT == false);
 	cout << endl;

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cctype>
+#include <cstring>
 #include "HienThi.h"
 #include "HamNhap.h"
 #include "DauSach.h"

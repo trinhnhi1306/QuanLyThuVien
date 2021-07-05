@@ -14,7 +14,7 @@ using namespace std;
 // thong tin vi tri hien tai
 int trangDSHienTai = 1;
 int soLuongTrangDS = 0;
-int xKeyDisplay[7] = { 1, 20, 55, 70, 90, 110, 130 };// toa do X cac diem nut
+int xKeyDisplay[7] = { 1, 20, 55, 70, 90, 110, 135 };// toa do X cac diem nut
 string thongTinDS[6] = { "ISBN", "Ten sach", "So trang", "Tac gia", "Nam xuat ban", "The loai" };
 string thongTinDMS[4] = { "ISBN", "So luong sach can them", "Ma sach", "Vi tri"};
 
@@ -196,8 +196,8 @@ void xoaThongTinBangNhap()
 	cout << setw(30) << setfill(' ') << "";
 }
 
-//Nhập thông tin đầu sách, flag = 0 : thêm mới, flag = 1 : xóa, flag = 2: chỉnh sửa
-void nhapDS(LIST_DS& l, int flag)
+//Nhập thông tin đầu sách để thêm mới
+void nhapDauSachDeThemMoi(LIST_DS& l)
 {
 	dausach s;	
 	string soTrang;
@@ -212,7 +212,7 @@ void nhapDS(LIST_DS& l, int flag)
 		{
 			case 0:
 			{
-				xoaThongTinBangNhap();
+				
 				kt = nhap_ki_tu(s.ISBN, 2, viTri, khoangCach);
 				if (kt == -1)
 				{
@@ -220,67 +220,27 @@ void nhapDS(LIST_DS& l, int flag)
 					xoaThongBao();
 					return;
 				}
-				if (flag == 0) //trường hợp nhập mới
+				if (kt == KEY_UP) break;
+				else
 				{
 					xoaThongBao();
 					if (timKiemDauSachTheoMa(l, s.ISBN) != -1)
-					{						
+					{
 						inThongBao("Ma ISBN bi trung!");
 						break;
 					}
 					viTri++;
 					break;
 				}
-				if (flag == 1)
-				{
-					int stt = timKiemDauSachTheoMa(l, s.ISBN);
-					xoaThongBao();
-					if (stt == -1)
-					{						
-						inThongBao("Dau sach khong ton tai!");
-						break;
-					}									
-					gotoxy(X_Add + 12, 1 * 2 + Y_Add);
-					cout << l.ds[stt]->tensach;
-					gotoxy(X_Add + 12, 2 * 2 + Y_Add);
-					cout << l.ds[stt]->sotrang;
-					gotoxy(X_Add + 12, 3 * 2 + Y_Add);
-					cout << l.ds[stt]->tacgia;
-					gotoxy(X_Add + 12, 4 * 2 + Y_Add);
-					cout << l.ds[stt]->namxuatban;
-					gotoxy(X_Add + 12, 5 * 2 + Y_Add);
-					cout << l.ds[stt]->theloai;
-					if (demSoLuongSach(*l.ds[stt]) == 0)
-					{
-						int luaChon = menu_xoa(X_Notification, Y_Notification + 1);
-						if (luaChon == 0) // Có
-						{
-							xoaDSTheoMa(l, s.ISBN);
-							ghiFileDS(l);
-							xoaBangNhap();
-							soLuongTrangDS = (int)ceil((double)l.n / NumberPerPage);
-							inMotTrangDS(l, (trangDSHienTai - 1) * NumberPerPage);
-							inThongBao("Xoa thanh cong!");
-							return;
-						}
-						else
-						{
-							ShowCur(true);
-							break;
-						}
-					}
-					else
-					{
-						xoaThongBao();
-						inThongBao("Dau sach nay dang co sach, khong the xoa!");
-						ShowCur(true);
-						break;
-					}
-				}
 			}
 			case 1:
 			{
 				kt = nhap_ki_tu(s.tensach, 1, viTri, khoangCach);
+				if (kt == KEY_UP)
+				{
+					viTri--;
+					break;
+				}
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -293,6 +253,11 @@ void nhapDS(LIST_DS& l, int flag)
 			case 2:
 			{
 				kt = nhap_ki_tu(soTrang, 2, viTri, khoangCach);
+				if (kt == KEY_UP)
+				{
+					viTri--;
+					break;
+				}
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -300,12 +265,17 @@ void nhapDS(LIST_DS& l, int flag)
 					return;
 				}
 				viTri++;
-				s.sotrang = atoi(soTrang.c_str());
+				
 				break;
 			}
 			case 3:
 			{
 				kt = nhap_ki_tu(s.tacgia, 0, viTri, khoangCach);
+				if (kt == KEY_UP)
+				{
+					viTri--;
+					break;
+				}
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -318,6 +288,29 @@ void nhapDS(LIST_DS& l, int flag)
 			case 4:
 			{
 				kt = nhap_ki_tu(namxb, 2, viTri, khoangCach);
+				if (kt == KEY_UP)
+				{
+					viTri--;
+					break;
+				}				
+				if (kt == -1)
+				{
+					xoaBangNhap();
+					xoaThongBao();
+					return;
+				}
+				
+				viTri++;
+				break;
+			}
+			case 5:
+			{
+				kt = nhap_ki_tu(s.theloai, 0, viTri, khoangCach);
+				if (kt == KEY_UP)
+				{
+					viTri--;
+					break;
+				}				
 				if (kt == -1)
 				{
 					xoaBangNhap();
@@ -325,18 +318,7 @@ void nhapDS(LIST_DS& l, int flag)
 					return;
 				}
 				s.namxuatban = atoi(namxb.c_str());
-				viTri++;
-				break;
-			}
-			case 5:
-			{
-				kt = nhap_ki_tu(s.theloai, 0, viTri, khoangCach);
-				if (kt == -1)
-				{
-					xoaBangNhap();
-					xoaThongBao();
-					return;
-				}
+				s.sotrang = atoi(soTrang.c_str());
 				s.soluotmuon = 0;
 				themMotDS(l, s);
 				ghiFileDS(l);
@@ -347,6 +329,68 @@ void nhapDS(LIST_DS& l, int flag)
 				inMotTrangDS(l, (trangDSHienTai - 1)* NumberPerPage);
 				return;
 			}
+		}
+	}
+}
+
+void nhapDauSachDeXoa(LIST_DS& l)
+{
+	string isbn;
+	int viTri = 0;// so thu tu bat dau nhap
+	int kt;
+	int khoangCach = 12;
+	ShowCur(true);
+	while (true)
+	{
+		kt = nhap_ki_tu(isbn, 2, viTri, khoangCach);
+		if (kt == -1)
+		{
+			xoaBangNhap();
+			xoaThongBao();
+			return;
+		}
+		if (kt == KEY_UP) continue;
+		int stt = timKiemDauSachTheoMa(l, isbn);
+		xoaThongBao();
+		if (stt == -1)
+		{
+			inThongBao("Dau sach khong ton tai!");
+			continue;
+		}
+		xoaThongTinBangNhap();
+		gotoxy(X_Add + 12, 1 * 2 + Y_Add);
+		cout << l.ds[stt]->tensach;
+		gotoxy(X_Add + 12, 2 * 2 + Y_Add);
+		cout << l.ds[stt]->sotrang;
+		gotoxy(X_Add + 12, 3 * 2 + Y_Add);
+		cout << l.ds[stt]->tacgia;
+		gotoxy(X_Add + 12, 4 * 2 + Y_Add);
+		cout << l.ds[stt]->namxuatban;
+		gotoxy(X_Add + 12, 5 * 2 + Y_Add);
+		cout << l.ds[stt]->theloai;
+		if (demSoLuongSach(*l.ds[stt]) == 0)
+		{
+			int luaChon = menu_xoa(X_Notification, Y_Notification + 1);
+			if (luaChon == 0) // Có
+			{
+				xoaDSTheoMa(l, isbn);
+				ghiFileDS(l);
+				xoaBangNhap();
+				soLuongTrangDS = (int)ceil((double)l.n / NumberPerPage);
+				inMotTrangDS(l, (trangDSHienTai - 1) * NumberPerPage);
+				inThongBao("Xoa thanh cong!");
+				return;
+			}
+			else
+			{
+				ShowCur(true);
+			}
+		}
+		else
+		{
+			xoaThongBao();
+			inThongBao("Dau sach nay dang co sach, khong the xoa!");
+			ShowCur(true);
 		}
 	}
 }
@@ -734,7 +778,7 @@ void menuDauSach(LIST_DS& l)
 						break;
 					}
 					taoBangNhap("Nhap thong tin dau sach", thongTinDS, 0, 6, 50);
-					nhapDS(l, 0);					
+					nhapDauSachDeThemMoi(l);					
 					ShowCur(false);
 				}// endif signal == INSERT
 
@@ -747,7 +791,7 @@ void menuDauSach(LIST_DS& l)
 						return;
 					}
 					taoBangNhap("Nhap thong tin dau sach", thongTinDS, 0, 6, 50);
-					nhapDS(l, 1);
+					nhapDauSachDeXoa(l);
 					ShowCur(false);
 				}//else if( signal == DEL)
 				// HOME == chinh sua
